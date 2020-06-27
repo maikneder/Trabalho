@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,32 @@ public class ListarAlunosActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater i = getMenuInflater();
         i.inflate(R.menu.menu_principal, menu);
+
+        // Grava o que o usuário digitou na pesquisa
+        SearchView sv = (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                procuraAluno(s);
+                return false;
+            }
+        });
         return true;
+    }
+
+    public void procuraAluno(String nome) {
+        alunosFiltrados.clear();
+        for(Aluno a : alunos) {
+            if(a.getNome().toLowerCase().contains(nome.toLowerCase())){
+                alunosFiltrados.add(a);
+            }
+        }
+        lista.invalidateViews();
     }
 
     public void cadastrar(MenuItem item) {
@@ -46,6 +72,7 @@ public class ListarAlunosActivity extends AppCompatActivity {
         startActivity(it);
     }
 
+    // Sobrescrevendo método para atualizar a lista após inserir um novo aluno
     @Override
     public void onResume() {
         super.onResume();
