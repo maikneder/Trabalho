@@ -1,12 +1,19 @@
 package com.facom.trabalho;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -33,6 +40,9 @@ public class ListarAlunosActivity extends AppCompatActivity {
         alunosFiltrados.addAll(alunos);
         ArrayAdapter<Aluno> adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alunosFiltrados);
         lista.setAdapter(adaptador);
+
+        // Faz o link do menu de contexto de alterar e excluir com a lista de alunos
+        registerForContextMenu(lista);
     }
 
     // Infla o menu superior
@@ -57,6 +67,13 @@ public class ListarAlunosActivity extends AppCompatActivity {
         return true;
     }
 
+    // Cria menu de contexto para alterar ou excluir
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater i = getMenuInflater();
+        i.inflate(R.menu.menu_contexto, menu);
+    }
+
     public void procuraAluno(String nome) {
         alunosFiltrados.clear();
         for(Aluno a : alunos) {
@@ -70,6 +87,28 @@ public class ListarAlunosActivity extends AppCompatActivity {
     public void cadastrar(MenuItem item) {
         Intent it = new Intent(this, MainActivity.class);
         startActivity(it);
+    }
+
+    public void excluir(MenuItem item) {
+        // Armazena qual a posição o usuário clicou
+        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final Aluno alunoExcluir = alunosFiltrados.get(menuInfo.position);
+
+        // Cria caixa de alerta antes da exclusão
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Atenção")
+                .setMessage("Deseja realmente excluir o aluno?")
+                .setNegativeButton("Não", null)
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        alunosFiltrados.remove(alunoExcluir);
+                        alunos.remove(alunoExcluir);
+                        dao.excluir(alunoExcluir);
+                        lista.invalidateViews();
+                    }
+                }).create();
+        dialog.show();
     }
 
     // Sobrescrevendo método para atualizar a lista após inserir um novo aluno

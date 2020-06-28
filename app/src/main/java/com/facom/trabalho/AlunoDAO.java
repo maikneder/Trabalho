@@ -40,4 +40,9 @@ public class AlunoDAO {
         }
         return alunos;
     }
+
+
+    public void excluir(Aluno a) {
+        banco.delete("aluno", "id = ?", new String[]{a.getId().toString()});
+    }
 }
