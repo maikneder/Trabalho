@@ -5,5 +5,7 @@
     <item
         android:onClick="excluir"
         android:title="Excluir" />
-    <item android:title="Atualizar" />
+    <item
+        android:onClick="atualizar"
+        android:title="Atualizar" />
 </menu>

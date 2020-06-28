@@ -38,7 +38,8 @@ public class ListarAlunosActivity extends AppCompatActivity {
         dao = new AlunoDAO(this);
         alunos = dao.obterTodos();
         alunosFiltrados.addAll(alunos);
-        ArrayAdapter<Aluno> adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alunosFiltrados);
+        // ArrayAdapter<Aluno> adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, alunosFiltrados);
+        AlunoAdapter adaptador = new AlunoAdapter(this, alunosFiltrados);
         lista.setAdapter(adaptador);
 
         // Faz o link do menu de contexto de alterar e excluir com a lista de alunos
@@ -109,6 +110,16 @@ public class ListarAlunosActivity extends AppCompatActivity {
                     }
                 }).create();
         dialog.show();
+    }
+
+    public void atualizar(MenuItem item) {
+        // Armazena qual a posição o usuário clicou
+        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final Aluno alunoAtualizar = alunosFiltrados.get(menuInfo.position);
+
+        Intent it = new Intent(this, MainActivity.class);
+        it.putExtra("aluno", alunoAtualizar);
+        startActivity(it);
     }
 
     // Sobrescrevendo método para atualizar a lista após inserir um novo aluno
