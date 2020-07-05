@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class ListarAlunosActivity extends AppCompatActivity {
         registerForContextMenu(lista);
     }
 
-    // Infla o menu superior
+    // Infla o menu superior para exibir o cadastrar e o pesquisar
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater i = getMenuInflater();
         i.inflate(R.menu.menu_principal, menu);
@@ -85,6 +86,7 @@ public class ListarAlunosActivity extends AppCompatActivity {
         lista.invalidateViews();
     }
 
+    // Chama a tela para cadastrar
     public void cadastrar(MenuItem item) {
         Intent it = new Intent(this, MainActivity.class);
         startActivity(it);
@@ -122,13 +124,21 @@ public class ListarAlunosActivity extends AppCompatActivity {
         startActivity(it);
     }
 
-    // Sobrescrevendo método para atualizar a lista após inserir um novo aluno
+    public void sair(MenuItem item) {
+        Intent it = new Intent(this, LoginActivity.class);
+        startActivity(it);
+    }
+
+    // Sobrescrevendo método para atualizar a lista após inserir um novo aluno, tela voltou a estar ativa
     @Override
     public void onResume() {
         super.onResume();
         alunos = dao.obterTodos();
+        // Limpa a lista de alunos
         alunosFiltrados.clear();
+        // Adiciona a lista de alunos com o último registro que foi inserido
         alunosFiltrados.addAll(alunos);
+        // Invalida dados antigos da lista para poder mostra atualizado.
         lista.invalidateViews();
     }
 }

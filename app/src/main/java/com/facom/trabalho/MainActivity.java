@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nome = findViewById(R.id.edtNome);
+        nome = findViewById(R.id.edtNomeU);
         cpf = findViewById(R.id.edtCPF);
         telefone = findViewById(R.id.edtTelefone);
         dao = new AlunoDAO(this);

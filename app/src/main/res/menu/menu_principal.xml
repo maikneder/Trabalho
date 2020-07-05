@@ -13,4 +13,9 @@
         android:title="Consultar"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
+    <item
+        android:icon="@android:drawable/ic_lock_power_off"
+        android:onClick="sair"
+        android:title="Sair"
+        app:showAsAction="ifRoom" />
 </menu>
