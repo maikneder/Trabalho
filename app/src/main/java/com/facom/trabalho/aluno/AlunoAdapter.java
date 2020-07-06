@@ -1,10 +1,12 @@
-package com.facom.trabalho;
+package com.facom.trabalho.aluno;
 
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.facom.trabalho.R;
 
 import java.util.List;
 

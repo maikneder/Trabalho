@@ -1,9 +1,11 @@
-package com.facom.trabalho;
+package com.facom.trabalho.usuario;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.facom.trabalho.DBHelper;
 
 public class UsuarioDAO {
 

@@ -1,4 +1,4 @@
-package com.facom.trabalho;
+package com.facom.trabalho.usuario;
 
 public class Usuario {
     private String nome, senha;

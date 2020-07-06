@@ -1,4 +1,4 @@
-package com.facom.trabalho;
+package com.facom.trabalho.aluno;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.facom.trabalho.R;
+
+public class CadAlunoActivity extends AppCompatActivity {
 
     private EditText nome;
     private EditText cpf;
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_cad_aluno);
 
         nome = findViewById(R.id.edtNomeU);
         cpf = findViewById(R.id.edtCPF);

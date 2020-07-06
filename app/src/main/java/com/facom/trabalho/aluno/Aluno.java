@@ -1,4 +1,4 @@
-package com.facom.trabalho;
+package com.facom.trabalho.aluno;
 
 import java.io.Serializable;
 
