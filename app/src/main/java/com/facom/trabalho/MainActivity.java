@@ -37,20 +37,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void salvar(View view) {
-        if(aluno == null) {
-            aluno = new Aluno();
-            aluno.setNome(nome.getText().toString());
-            aluno.setCpf(cpf.getText().toString());
-            aluno.setTelefone(telefone.getText().toString());
-            long id = dao.inserir(aluno);
-            Toast.makeText(this, "Aluno inserido com id: " + id, Toast.LENGTH_SHORT).show();
+        if(nome.getText().toString() == null || nome.getText().toString().equals("")) {
+            nome.setError("O campo Nome é obrigatório");
+        } else if(cpf.getText().toString() == null || cpf.getText().toString().equals("")) {
+            cpf.setError("O campo CPF é obrigatório");
+        } else if(telefone.getText().toString() == null || telefone.getText().toString().equals("")) {
+            telefone.setError("O campo Telefone é obrigatório");
         } else {
-            aluno.setNome(nome.getText().toString());
-            aluno.setCpf(cpf.getText().toString());
-            aluno.setTelefone(telefone.getText().toString());
-            dao.atualizar(aluno);
-            Toast.makeText(this, "Aluno foi atualizado ", Toast.LENGTH_SHORT).show();
+            if(aluno == null) {
+                aluno = new Aluno();
+                aluno.setNome(nome.getText().toString());
+                aluno.setCpf(cpf.getText().toString());
+                aluno.setTelefone(telefone.getText().toString());
+                long id = dao.inserir(aluno);
+                Toast.makeText(this, "Aluno inserido com id: " + id, Toast.LENGTH_SHORT).show();
+            } else {
+                aluno.setNome(nome.getText().toString());
+                aluno.setCpf(cpf.getText().toString());
+                aluno.setTelefone(telefone.getText().toString());
+                dao.atualizar(aluno);
+                Toast.makeText(this, "Aluno foi atualizado ", Toast.LENGTH_SHORT).show();
+            }
         }
-
     }
 }
